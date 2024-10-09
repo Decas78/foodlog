@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<preferences xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:key="daily_calorie_goal"
+        android:title="Daily Calorie Goal"
+        android:defaultValue="2000"
+        android:inputType="number"
+        android:summary="Set your daily calorie goal"/>
+</preferences>

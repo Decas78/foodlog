@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "797394821831",
+    "project_id": "foodlog-725ad",
+    "storage_bucket": "foodlog-725ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:797394821831:android:32bc09aa799f69865694e2",
+        "android_client_info": {
+          "package_name": "com.example.foodlog"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGLoVmIsX327s6OTiQrrI5W4DHCPftef8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

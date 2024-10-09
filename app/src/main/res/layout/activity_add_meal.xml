@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- EditText for Meal Name -->
+    <EditText
+        android:id="@+id/etMealName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Meal Name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- EditText for Portion Size -->
+    <EditText
+        android:id="@+id/etPortionSize"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Portion Size (grams)"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/etMealName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- EditText for Calories -->
+    <EditText
+        android:id="@+id/etCalories"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Calories"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/etPortionSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- RadioGroup for Meal Type -->
+    <RadioGroup
+        android:id="@+id/rgMealType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/etCalories"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <RadioButton
+            android:id="@+id/rbBreakfast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Breakfast" />
+
+        <RadioButton
+            android:id="@+id/rbLunch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lunch" />
+
+        <RadioButton
+            android:id="@+id/rbDinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dinner" />
+
+        <RadioButton
+            android:id="@+id/rbSnack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Snack" />
+    </RadioGroup>
+
+    <!-- ImageView for Meal Photo -->
+    <ImageView
+        android:id="@+id/mealPhotoImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="Meal Photo"
+        app:layout_constraintTop_toBottomOf="@id/rgMealType"
+        app:layout_constraintWidth_percent="0.9"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        android:src="@null" />  <!-- Needs to be replaced with real photo TODO -->
+        <!-- Image is Initially hidden -->
+
+    <!-- Button to Upload Meal Photo -->
+    <Button
+        android:id="@+id/uploadPhotoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload Photo"
+        app:layout_constraintTop_toBottomOf="@id/mealPhotoImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- Button to Save Meal -->
+    <Button
+        android:id="@+id/btnSaveMeal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Meal"
+        app:layout_constraintTop_toBottomOf="@id/uploadPhotoButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp" />
+
+    <!-- Button for Searching Nutritional Information via API -->
+    <Button
+        android:id="@+id/btnSearchFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search Nutritional Info"
+        app:layout_constraintTop_toBottomOf="@id/btnSaveMeal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
