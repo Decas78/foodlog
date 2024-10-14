@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.foodlog.data.Meal
 import com.example.foodlog.data.MealDao
 
-@Database(entities = [Meal::class], version = 1, exportSchema = false)
+@Database(entities = [Meal::class], version = 2, exportSchema = false)
 abstract class MealDatabase : RoomDatabase() {
 
     // Reference to the DAO

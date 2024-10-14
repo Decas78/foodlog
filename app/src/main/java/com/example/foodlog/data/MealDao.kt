@@ -15,11 +15,12 @@ interface MealDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMeal(meal: Meal)
 
-    // Update the meal's photo URL
-    @Query("UPDATE meals SET photoUrl = :photoUrl WHERE id = :mealId")
-    suspend fun updateMealPhoto(mealId: Long, photoUrl: String)
+    // Update the meal's photo URI
+    @Query("UPDATE meals SET imageUri = :imageUri WHERE id = :mealId")
+    suspend fun updateMealPhoto(mealId: Long, imageUri: String)
 
     // Delete a meal from the database (optional)
     @Delete
     suspend fun deleteMeal(meal: Meal)
+
 }

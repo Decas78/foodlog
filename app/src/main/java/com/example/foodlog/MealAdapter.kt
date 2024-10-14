@@ -1,5 +1,6 @@
 package com.example.foodlog
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -20,16 +21,17 @@ class MealAdapter : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
             binding.tvCalories.text = "${meal.calories} kcal"
             binding.tvMealType.text = meal.mealType
 
-            // Load photo (if available) using Glide
-            meal.photoUrl?.let { url ->
+            // Load the image from the local URI if available
+            meal.imageUri?.let { uriString ->
+                val imageUri = Uri.parse(uriString) // Convert the imageUri string back to a Uri
                 Glide.with(binding.ivMealPhoto.context)
-                    .load(url)
-                    .placeholder(R.drawable.ic_launcher_background) // NEEDS REPLACEMENT TODO
-                    .error(R.drawable.ic_error_placeholder) // Error image
+                    .load(imageUri)
+                    .placeholder(R.drawable.ic_add_defualt) // Placeholder while loading
+                    .error(R.drawable.ic_error_placeholder)  // Error image if load fails
                     .into(binding.ivMealPhoto)
             } ?: run {
-                // Set a placeholder or default image if no URL is provided
-                binding.ivMealPhoto.setImageResource(R.drawable.ic_launcher_background) // NEEDS REPLACEMENT TODO
+                // Set a default image if no imageUri is available
+                binding.ivMealPhoto.setImageResource(R.drawable.ic_add_defualt)
             }
         }
     }
@@ -48,6 +50,6 @@ class MealAdapter : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
     // Submit the list of meals
     fun submitList(newMeals: List<Meal>) {
         meals = newMeals
-        notifyDataSetChanged()  // Ideally, you should use DiffUtil to improve performance.
+        notifyDataSetChanged()  // Ideally, use DiffUtil for better performance.
     }
 }

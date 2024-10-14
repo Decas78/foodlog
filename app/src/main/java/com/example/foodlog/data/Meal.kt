@@ -10,5 +10,5 @@ data class Meal(
     val portionSize: Int,
     val calories: Int,
     val mealType: String,
-    val photoUrl: String? = null // Nullable field for the photo URL
+    val imageUri: String? // Add this line to store the image URI
 )
