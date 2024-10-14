@@ -88,7 +88,6 @@
         app:layout_constraintHeight_percent="0.3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"
         android:src="@null" />  <!-- Needs to be replaced with real photo TODO -->
         <!-- Image is Initially hidden -->
 
