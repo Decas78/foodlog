@@ -19,6 +19,9 @@ class MealAdapter : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
         fun bind(meal: Meal) {
             binding.tvMealName.text = meal.name
             binding.tvCalories.text = "${meal.calories} kcal"
+            binding.tvCarbs.text = "Carbohydrates ${meal.carbs} g"
+            binding.tvFats.text = "Fats ${meal.fats} g"
+            binding.tvProtein.text = "Protein ${meal.protein} g"
             binding.tvMealType.text = meal.mealType
 
             // Load the image from the local URI if available
@@ -26,12 +29,12 @@ class MealAdapter : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
                 val imageUri = Uri.parse(uriString) // Convert the imageUri string back to a Uri
                 Glide.with(binding.ivMealPhoto.context)
                     .load(imageUri)
-                    .placeholder(R.drawable.ic_add_defualt) // Placeholder while loading
+                    .placeholder(R.drawable.ic_add_default) // Placeholder while loading
                     .error(R.drawable.ic_error_placeholder)  // Error image if load fails
                     .into(binding.ivMealPhoto)
             } ?: run {
                 // Set a default image if no imageUri is available
-                binding.ivMealPhoto.setImageResource(R.drawable.ic_add_defualt)
+                binding.ivMealPhoto.setImageResource(R.drawable.ic_add_default)
             }
         }
     }

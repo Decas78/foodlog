@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -46,10 +47,13 @@ class AddMealActivity : AppCompatActivity() {
             val mealName = binding.etMealName.text.toString()
             val portionSize = binding.etPortionSize.text.toString().toIntOrNull() ?: 0
             val calories = binding.etCalories.text.toString().toIntOrNull() ?: 0
+            val carbs = binding.etCarbs.text.toString().toIntOrNull() ?: 0
+            val fats = binding.etFats.text.toString().toIntOrNull() ?: 0
+            val protein = binding.etProtein.text.toString().toIntOrNull() ?: 0
 
             if (mealName.isNotBlank() && calories > 0) {
                 // Save meal with selected image URI or without a photo
-                saveMealToDatabase(mealName, portionSize, calories, selectedImageUri)
+                saveMealToDatabase(mealName, portionSize, calories, carbs, fats, protein, selectedImageUri)
             } else {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }
@@ -64,7 +68,9 @@ class AddMealActivity : AppCompatActivity() {
                     if (nutritionalInfo != null) {
                         // Pre-fill the calories field based on API result
                         binding.etCalories.setText(nutritionalInfo.calories.toInt().toString())
-                        // TODO: Add more fields here from nutritionalInfo if needed
+                        binding.etCarbs.setText(nutritionalInfo.carbohydrates_total_g.toInt().toString())
+                        binding.etFats.setText(nutritionalInfo.fat_total_g.toInt().toString())
+                        binding.etProtein.setText(nutritionalInfo.protein_g.toInt().toString())
                     } else {
                         Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show()
                     }
@@ -97,16 +103,20 @@ class AddMealActivity : AppCompatActivity() {
 
 
     // Save the meal to the local database
-    private fun saveMealToDatabase(mealName: String, portionSize: Int, calories: Int, photoUri: Uri?) {
+    private fun saveMealToDatabase(mealName: String, portionSize: Int, calories: Int, carbs: Int, fats: Int, protein: Int, photoUri: Uri?) {
         val meal = Meal(
             name = mealName,
             portionSize = portionSize,
             calories = calories,
+            carbs = carbs,
+            fats = fats,
+            protein = protein,
             mealType = getSelectedMealType(),
             imageUri = photoUri?.toString() // Save the image URI as a string
         )
         mealViewModel.addMeal(meal)
         Toast.makeText(this, "Meal added", Toast.LENGTH_SHORT).show()
+        println("Calories: $calories") // For some reason there is 0 calories in some meals
         finish() // Close the activity
     }
 

@@ -14,7 +14,7 @@
         android:layout_height="70dp"
         android:contentDescription="Meal Photo"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_add_defualt"
+        android:src="@drawable/ic_add_default"
         app:layout_constraintBottom_toTopOf="@+id/tv_meal_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.3"
@@ -46,11 +46,41 @@
         android:layout_marginTop="4dp" />
 
     <TextView
+        android:id="@+id/tv_carbs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Carbs"
+        app:layout_constraintTop_toBottomOf="@+id/tv_calories"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/tv_fats"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Fats"
+        app:layout_constraintTop_toBottomOf="@+id/tv_carbs"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/tv_protein"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Protein"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fats"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp" />
+
+    <TextView
         android:id="@+id/tv_meal_type"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Meal Type"
-        app:layout_constraintTop_toBottomOf="@+id/tv_calories"
+        app:layout_constraintTop_toBottomOf="@+id/tv_protein"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="4dp" />

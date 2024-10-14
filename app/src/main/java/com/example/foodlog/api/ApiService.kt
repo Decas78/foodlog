@@ -30,7 +30,7 @@ interface ApiService {
 
 // Data class for API response
 data class ApiResponse(
-    val items: List<NutritionalInfo>  // Adjust according to CalorieNinjas response structure
+    val items: List<NutritionalInfo>
 )
 
 // Data class for storing nutritional information retrieved from the API

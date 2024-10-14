@@ -39,7 +39,7 @@ class MealRepository private constructor(
         Log.d("MealRepository", "Meal added: $meal")
     }
 
-    // Fetch nutritional information from CaloriaNinjas API
+    // Fetch nutritional information from Calorie Ninjas API
     suspend fun getNutritionalInfo(foodName: String, portionSize: String): NutritionalInfo? {
         return try {
             Log.d("MealRepository", "Fetching nutritional info for: portionSize='$portionSize', foodName='$foodName'")

@@ -39,12 +39,48 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 
+    <!-- EditText for Carbs -->
+    <EditText
+        android:id="@+id/etCarbs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Carbohydrates"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/etCalories"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- EditText for Fats -->
+    <EditText
+        android:id="@+id/etFats"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Fats"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/etCarbs"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- EditText for Protein -->
+    <EditText
+        android:id="@+id/etProtein"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Protein"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/etFats"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
     <!-- RadioGroup for Meal Type -->
     <RadioGroup
         android:id="@+id/rgMealType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/etCalories"
+        app:layout_constraintTop_toBottomOf="@id/etProtein"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="horizontal"
@@ -88,6 +124,7 @@
         app:layout_constraintHeight_percent="0.3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
         android:src="@null" />  <!-- Needs to be replaced with real photo TODO -->
         <!-- Image is Initially hidden -->
 

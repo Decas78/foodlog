@@ -9,6 +9,9 @@ data class Meal(
     val name: String,
     val portionSize: Int,
     val calories: Int,
+    val carbs: Int,
+    val fats: Int,
+    val protein: Int,
     val mealType: String,
     val imageUri: String? // Add this line to store the image URI
 )
