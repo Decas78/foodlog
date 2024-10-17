@@ -55,6 +55,6 @@ class MealRepository private constructor(
     // TODO Ensure meals have ids that can be used
     suspend fun uploadPhoto(photoUri: Uri, mealId: Long) {
         val photoUrl = firebaseStorageManager.uploadPhoto(photoUri)
-        mealDao.updateMealPhoto(mealId, photoUrl)
+        mealDao.updateMealPhotoURL(mealId, photoUrl)
     }
 }

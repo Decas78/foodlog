@@ -17,7 +17,11 @@ interface MealDao {
 
     // Update the meal's photo URI
     @Query("UPDATE meals SET imageUri = :imageUri WHERE id = :mealId")
-    suspend fun updateMealPhoto(mealId: Long, imageUri: String)
+    suspend fun updateMealPhotoURI(mealId: Long, imageUri: String)
+
+    // Update the meal's photo URI
+    @Query("UPDATE meals SET imageUrl = :imageUrl WHERE id = :mealId")
+    suspend fun updateMealPhotoURL(mealId: Long, imageUrl: String)
 
     // Delete a meal from the database (optional)
     @Delete

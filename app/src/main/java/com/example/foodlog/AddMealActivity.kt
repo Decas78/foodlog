@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.foodlog.data.Meal
 import com.example.foodlog.databinding.ActivityAddMealBinding
+import com.google.firebase.storage.FirebaseStorage
 import java.io.IOException
 import java.io.OutputStream
 import java.util.UUID
@@ -24,6 +25,7 @@ class AddMealActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddMealBinding
     private var selectedImageUri: Uri? = null
+    private var imageUrl: String? = null
 
     // ViewModel for managing meal addition and API calls
     private val mealViewModel: MealViewModel by viewModels()
@@ -173,20 +175,32 @@ class AddMealActivity : AppCompatActivity() {
 
 
     private fun saveMealToDatabase(mealName: String, portionSize: Int, calories: Int, carbs: Int, fats: Int, protein: Int, photoUri: Uri?) {
-        val meal = Meal(
-            name = mealName,
-            portionSize = portionSize,
-            calories = calories,
-            carbs = carbs,
-            fats = fats,
-            protein = protein,
-            mealType = getSelectedMealType(),
-            imageUri = photoUri?.toString()
-        )
-        mealViewModel.addMeal(meal)
-        Toast.makeText(this, "Meal added", Toast.LENGTH_SHORT).show()
-        finish()
+        if (photoUri != null) {
+            uploadImageToFirebase(photoUri) { url ->
+                if (url != null) {
+                    val meal = Meal(
+                        name = mealName,
+                        portionSize = portionSize,
+                        calories = calories,
+                        carbs = carbs,
+                        fats = fats,
+                        protein = protein,
+                        mealType = getSelectedMealType(),
+                        imageUri = photoUri.toString(),
+                        imageUrl = url
+                    )
+                    mealViewModel.addMeal(meal)
+                    Toast.makeText(this, "Meal added", Toast.LENGTH_SHORT).show()
+                    finish()
+                } else {
+                    Toast.makeText(this, "Image upload failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+        } else {
+            Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
+        }
     }
+
 
     private fun getSelectedMealType(): String {
         return when (binding.rgMealType.checkedRadioButtonId) {
@@ -196,4 +210,26 @@ class AddMealActivity : AppCompatActivity() {
             else -> "Snack"
         }
     }
+
+    private fun uploadImageToFirebase(imageUri: Uri, callback: (String?) -> Unit) {
+        val storageReference = FirebaseStorage.getInstance().reference
+        val fileName = UUID.randomUUID().toString()
+        val imageRef = storageReference.child("images/$fileName")
+
+        imageRef.putFile(imageUri)
+            .addOnSuccessListener {
+                // Get the download URL
+                imageRef.downloadUrl.addOnSuccessListener { uri ->
+                    callback(uri.toString())
+                }.addOnFailureListener {
+                    callback(null) // If there's an error getting the URL
+                }
+            }
+            .addOnFailureListener {
+                callback(null) // Handle error
+            }
+    }
+
+
+
 }
