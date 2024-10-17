@@ -12,7 +12,6 @@ class MealAdapter : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
 
     private var meals: List<Meal> = listOf()
 
-    // ViewHolder class for the RecyclerView
     inner class MealViewHolder(private val binding: ItemMealBinding) : RecyclerView.ViewHolder(binding.root) {
 
         // Bind meal data to the views
@@ -24,17 +23,26 @@ class MealAdapter : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
             binding.tvProtein.text = "Protein ${meal.protein} g"
             binding.tvMealType.text = meal.mealType
 
-            // Load the image from the local URI if available
-            meal.imageUri?.let { uriString ->
-                val imageUri = Uri.parse(uriString) // Convert the imageUri string back to a Uri
+            // Load the image from the Firebase URL if available
+            if (!meal.imageUrl.isNullOrEmpty()) {
                 Glide.with(binding.ivMealPhoto.context)
-                    .load(imageUri)
+                    .load(meal.imageUrl)
                     .placeholder(R.drawable.ic_add_default) // Placeholder while loading
                     .error(R.drawable.ic_error_placeholder)  // Error image if load fails
                     .into(binding.ivMealPhoto)
-            } ?: run {
-                // Set a default image if no imageUri is available
-                binding.ivMealPhoto.setImageResource(R.drawable.ic_add_default)
+            } else {
+                // Fallback to loading image from the local URI
+                meal.imageUri?.let { uriString ->
+                    val imageUri = Uri.parse(uriString) // Convert the imageUri string back to a Uri
+                    Glide.with(binding.ivMealPhoto.context)
+                        .load(imageUri)
+                        .placeholder(R.drawable.ic_add_default) // Placeholder while loading
+                        .error(R.drawable.ic_error_placeholder)  // Error image if load fails
+                        .into(binding.ivMealPhoto)
+                } ?: run {
+                    // Set a default image if no imageUri is available
+                    binding.ivMealPhoto.setImageResource(R.drawable.ic_add_default)
+                }
             }
         }
     }
@@ -50,9 +58,8 @@ class MealAdapter : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
 
     override fun getItemCount(): Int = meals.size
 
-    // Submit the list of meals
     fun submitList(newMeals: List<Meal>) {
         meals = newMeals
-        notifyDataSetChanged()  // Ideally, use DiffUtil for better performance.
+        notifyDataSetChanged() // Ideally, use DiffUtil for better performance.
     }
 }
