@@ -1,6 +1,7 @@
 package com.example.foodlog
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -27,10 +28,8 @@ class AddMealActivity : AppCompatActivity() {
     private var selectedImageUri: Uri? = null
     private var imageUrl: String? = null
 
-    // ViewModel for managing meal addition and API calls
     private val mealViewModel: MealViewModel by viewModels()
 
-    // Request codes
     companion object {
         private const val PICK_IMAGE_REQUEST_CODE = 100
         private const val TAKE_IMAGE_REQUEST_CODE = 101
@@ -42,12 +41,10 @@ class AddMealActivity : AppCompatActivity() {
         binding = ActivityAddMealBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // "Upload Photo" button click
         binding.uploadPhotoButton.setOnClickListener {
             showImageSourceDialog()
         }
 
-        // "Save Meal" button click
         binding.btnSaveMeal.setOnClickListener {
             val mealName = binding.etMealName.text.toString()
             val portionSize = binding.etPortionSize.text.toString().toIntOrNull() ?: 0
@@ -63,7 +60,6 @@ class AddMealActivity : AppCompatActivity() {
             }
         }
 
-        // Handle API search button click
         binding.btnSearchFood.setOnClickListener {
             val foodName = binding.etMealName.text.toString()
             val portionSize = binding.etPortionSize.text.toString()
@@ -88,8 +84,8 @@ class AddMealActivity : AppCompatActivity() {
             .setTitle("Select Image Source")
             .setItems(options) { _, which ->
                 when (which) {
-                    0 -> openImagePicker() // Upload Photo
-                    1 -> takePhoto() // Take a Photo
+                    0 -> openImagePicker()
+                    1 -> takePhoto()
                 }
             }
             .show()
@@ -120,9 +116,9 @@ class AddMealActivity : AppCompatActivity() {
             }
             TAKE_IMAGE_REQUEST_CODE -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    val bitmap = data?.extras?.get("data") as? Bitmap // Ensure it's cast to Bitmap
+                    val bitmap = data?.extras?.get("data") as? Bitmap
                     bitmap?.let {
-                        val savedUri = saveBitmapToFile(it, this) // Pass the Bitmap
+                        val savedUri = saveBitmapToFile(it, this)
                         binding.mealPhotoImageView.setImageBitmap(it)
                         selectedImageUri = savedUri
                     }
@@ -130,10 +126,6 @@ class AddMealActivity : AppCompatActivity() {
             }
         }
     }
-
-
-
-
 
     private fun handleImageUri(uri: Uri) {
         contentResolver.takePersistableUriPermission(
@@ -148,35 +140,38 @@ class AddMealActivity : AppCompatActivity() {
     }
 
     private fun saveBitmapToFile(bitmap: Bitmap, context: Context): Uri? {
-        // Create a ContentValues object to specify the details of the image
         val contentValues = ContentValues().apply {
-            put(MediaStore.Images.Media.DISPLAY_NAME, "${UUID.randomUUID()}.jpg") // Name of the image
-            put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg") // MIME type
-            put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES) // Save to Pictures directory
+            put(MediaStore.Images.Media.DISPLAY_NAME, "${UUID.randomUUID()}.jpg")
+            put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+            put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
         }
 
-        // Insert the image into the MediaStore
         val uri: Uri? = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
 
         uri?.let {
             try {
-                // Open an output stream to write the bitmap
                 context.contentResolver.openOutputStream(it)?.use { outputStream: OutputStream ->
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
-                return null // Return null on error
+                return null
             }
         }
 
-        return uri // Return the URI of the saved image
+        return uri
     }
-
 
     private fun saveMealToDatabase(mealName: String, portionSize: Int, calories: Int, carbs: Int, fats: Int, protein: Int, photoUri: Uri?) {
         if (photoUri != null) {
+            val progressDialog = ProgressDialog(this).apply {
+                setMessage("Uploading image...")
+                setCancelable(false)
+                show()
+            }
+
             uploadImageToFirebase(photoUri) { url ->
+                progressDialog.dismiss()
                 if (url != null) {
                     val meal = Meal(
                         name = mealName,
@@ -201,7 +196,6 @@ class AddMealActivity : AppCompatActivity() {
         }
     }
 
-
     private fun getSelectedMealType(): String {
         return when (binding.rgMealType.checkedRadioButtonId) {
             R.id.rbBreakfast -> "Breakfast"
@@ -218,18 +212,14 @@ class AddMealActivity : AppCompatActivity() {
 
         imageRef.putFile(imageUri)
             .addOnSuccessListener {
-                // Get the download URL
                 imageRef.downloadUrl.addOnSuccessListener { uri ->
                     callback(uri.toString())
                 }.addOnFailureListener {
-                    callback(null) // If there's an error getting the URL
+                    callback(null)
                 }
             }
             .addOnFailureListener {
-                callback(null) // Handle error
+                callback(null)
             }
     }
-
-
-
 }
