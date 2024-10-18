@@ -7,12 +7,10 @@ import kotlinx.coroutines.flow.Flow
 import com.example.foodlog.api.ApiService
 import com.example.foodlog.api.NutritionalInfo
 import com.example.foodlog.database.MealDatabase
-import com.example.foodlog.firebase.FirebaseStorageManager
 
 class MealRepository private constructor(
     private val mealDao: MealDao,
     private val apiService: ApiService,
-    private val firebaseStorageManager: FirebaseStorageManager
 ) {
     companion object {
         @Volatile private var instance: MealRepository? = null
@@ -22,7 +20,6 @@ class MealRepository private constructor(
                 instance ?: MealRepository(
                     MealDatabase.getDatabase(application).mealDao(),
                     ApiService.create(),
-                    FirebaseStorageManager()
                 ).also { instance = it }
             }
         }
@@ -49,12 +46,5 @@ class MealRepository private constructor(
             Log.e("MealRepository", "Error fetching nutritional info: ${e.message}")
             null // Handle error, return null if API call fails
         }
-    }
-
-    // Upload a meal photo to Firebase and link it to the meal
-    // TODO Ensure meals have ids that can be used
-    suspend fun uploadPhoto(photoUri: Uri, mealId: Long) {
-        val photoUrl = firebaseStorageManager.uploadPhoto(photoUri)
-        mealDao.updateMealPhotoURL(mealId, photoUrl)
     }
 }

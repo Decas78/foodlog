@@ -29,17 +29,6 @@ class MealViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // Method to upload meal photo to Firebase and associate it with a meal
-    fun uploadMealPhoto(photoUri: Uri, mealId: Long) {
-        viewModelScope.launch {
-            try {
-                mealRepository.uploadPhoto(photoUri, mealId)
-            } catch (e: Exception) {
-                // Handle error, e.g., log error or notify user
-            }
-        }
-    }
-
     // Factory class to instantiate the MealViewModel with MealRepository
 }
 class MealViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
