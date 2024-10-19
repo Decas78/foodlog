@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".FoodLogActivity">
 
-    <!-- Calorie Summary TextView -->
+    <!-- Calorie Summary -->
     <TextView
         android:id="@+id/calorieSummaryTextView"
         android:layout_width="wrap_content"

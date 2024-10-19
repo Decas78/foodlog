@@ -11,7 +11,7 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- EditText for Meal Name -->
+    <!-- Meal Name -->
     <EditText
         android:id="@+id/etMealName"
         android:layout_width="0dp"
@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- EditText for Portion Size -->
+    <!-- Portion Size -->
     <EditText
         android:id="@+id/etPortionSize"
         android:layout_width="0dp"
@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 
-    <!-- Macros Section: Calories and Carbs side by side -->
+    <!-- Macros Section Calories and Carbs -->
     <EditText
         android:id="@+id/etCalories"
         android:layout_width="0dp"
@@ -58,7 +58,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp" />
 
-    <!-- Macros Section: Fats and Protein side by side -->
+    <!-- Macros Section Fats and Protein -->
     <EditText
         android:id="@+id/etFats"
         android:layout_width="0dp"
@@ -83,7 +83,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp" />
 
-    <!-- RadioGroup for Meal Type -->
+    <!-- Meal Type -->
     <RadioGroup
         android:id="@+id/rgMealType"
         android:layout_width="wrap_content"
@@ -132,7 +132,7 @@
         app:layout_constraintHeight_percent="0.3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@null" />  <!-- Image is Initially hidden -->
+        android:src="@null" />  <!-- Image Initially hidden -->
 
     <!-- Button to Upload Meal Photo -->
     <Button
@@ -154,7 +154,7 @@
         app:layout_constraintTop_toBottomOf="@id/uploadPhotoButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp" />
+        android:layout_marginTop="16dp" />
 
     <!-- Button for Searching Nutritional Information via API -->
     <Button
@@ -165,6 +165,7 @@
         app:layout_constraintTop_toBottomOf="@id/btnSaveMeal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

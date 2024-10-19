@@ -40,7 +40,6 @@ class MealAdapter : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
                     Glide.with(binding.ivMealPhoto.context)
                         .load(meal.imageUrl)
                         .placeholder(R.drawable.ic_add_default) // Placeholder while loading
-                        .error(R.drawable.ic_error_placeholder)  // Error image if load fails
                         .into(binding.ivMealPhoto)
                 } else {
                     // Fallback to loading image from the local URI
@@ -49,7 +48,6 @@ class MealAdapter : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
                         Glide.with(binding.ivMealPhoto.context)
                             .load(imageUri)
                             .placeholder(R.drawable.ic_add_default) // Placeholder while loading
-                            .error(R.drawable.ic_error_placeholder)  // Error image if load fails
                             .into(binding.ivMealPhoto)
                     } ?: run {
                         // Set a default image if no imageUri is available
@@ -63,7 +61,6 @@ class MealAdapter : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
                     Glide.with(binding.ivMealPhoto.context)
                         .load(imageUri)
                         .placeholder(R.drawable.ic_add_default) // Placeholder while loading
-                        .error(R.drawable.ic_error_placeholder)  // Error image if load fails
                         .into(binding.ivMealPhoto)
                 } ?: run {
                     // Set a default image if no imageUri is available
@@ -104,7 +101,6 @@ class MealAdapter : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
                 Glide.with(binding.ivMealPhoto.context)
                     .load(imageUri)
                     .placeholder(R.drawable.ic_add_default) // Placeholder while loading
-                    .error(R.drawable.ic_error_placeholder)  // Error image if load fails
                     .into(binding.ivMealPhoto)
             } ?: run {
                 // Set a default image if no imageUri is available
